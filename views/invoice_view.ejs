@@ -1,0 +1,130 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<div class="page-head">
+  <h1>Invoice <span class="invoice-number"><%= invoice.number %></span></h1>
+  <div class="page-actions">
+    <a class="btn btn-ghost" href="/invoices">← All invoices</a>
+    <a class="btn btn-secondary" href="/invoices/<%= invoice.id %>/pdf" target="_blank">Download PDF</a>
+  </div>
+</div>
+
+<div class="invoice-meta-row">
+  <span class="badge badge-<%= effectiveStatus %>"><%= effectiveStatus.toUpperCase() %></span>
+  <span class="muted">Issued <%= fmtDate(invoice.issue_date) %> · Due <%= fmtDate(invoice.due_date) %>
+    <% if (invoice.paid_at) { %> · Paid <%= fmtDate(invoice.paid_at) %><% } %></span>
+</div>
+
+<div class="invoice-grid">
+  <div class="card">
+    <h3 class="muted-label">From</h3>
+    <p><strong><%= business.name %></strong></p>
+    <% if (business.address) { %><p class="pre-line"><%= business.address %></p><% } %>
+    <% if (business.email) { %><p class="muted"><%= business.email %></p><% } %>
+    <% if (business.tax_id) { %><p class="muted">Tax ID: <%= business.tax_id %></p><% } %>
+  </div>
+  <div class="card">
+    <h3 class="muted-label">Bill to</h3>
+    <p><strong><%= customer.name %></strong></p>
+    <% if (customer.address) { %><p class="pre-line"><%= customer.address %></p><% } %>
+    <% if (customer.email) { %><p class="muted"><%= customer.email %></p><% } %>
+    <% if (customer.phone) { %><p class="muted"><%= customer.phone %></p><% } %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Description</th><th class="num">Qty</th><th class="num">Unit price</th><th class="num">Amount</th></tr>
+      </thead>
+      <tbody>
+        <% items.forEach(function (it) { %>
+          <tr>
+            <td><%= it.description %></td>
+            <td class="num"><%= it.quantity %></td>
+            <td class="num"><%= fmtMoney(it.unit_price_minor, invoice.currency) %></td>
+            <td class="num"><strong><%= fmtMoney(it.amount_minor, invoice.currency) %></strong></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="totals-panel">
+    <div class="totals-row"><span>Subtotal</span><span><%= fmtMoney(invoice.subtotal_minor, invoice.currency) %></span></div>
+    <% if (invoice.discount_minor > 0) { %>
+      <div class="totals-row">
+        <span>Discount<%= invoice.discount_type === 'percent' ? ' (' + invoice.discount_percent + '%)' : '' %></span>
+        <span>− <%= fmtMoney(invoice.discount_minor, invoice.currency) %></span>
+      </div>
+    <% } %>
+    <% if (invoice.tax_minor > 0 || invoice.tax_rate > 0) { %>
+      <div class="totals-row"><span>Tax (<%= invoice.tax_rate %>%)</span><span><%= fmtMoney(invoice.tax_minor, invoice.currency) %></span></div>
+    <% } %>
+    <div class="totals-row totals-grand"><span>Total</span><span><%= fmtMoney(invoice.total_minor, invoice.currency) %></span></div>
+  </div>
+
+  <% if (invoice.notes) { %>
+    <h3 class="muted-label">Notes</h3>
+    <p class="pre-line"><%= invoice.notes %></p>
+  <% } %>
+</div>
+
+<div class="invoice-grid">
+  <div class="card">
+    <h3 class="muted-label">Actions</h3>
+    <div class="action-stack">
+      <% if (invoice.status === 'draft') { %>
+        <form method="post" action="/invoices/<%= invoice.id %>/status">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>"><input type="hidden" name="action" value="sent">
+          <button class="btn btn-secondary" type="submit">Mark as sent</button>
+        </form>
+      <% } %>
+      <% if (invoice.status !== 'paid') { %>
+        <form method="post" action="/invoices/<%= invoice.id %>/status">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>"><input type="hidden" name="action" value="paid">
+          <button class="btn btn-primary" type="submit">Mark as paid</button>
+        </form>
+      <% } else { %>
+        <a class="btn btn-primary" href="/invoices/<%= invoice.id %>/receipt" target="_blank">Download receipt (PDF)</a>
+        <form method="post" action="/invoices/<%= invoice.id %>/status">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>"><input type="hidden" name="action" value="sent">
+          <button class="btn btn-ghost" type="submit">Undo payment (back to sent)</button>
+        </form>
+      <% } %>
+      <% if (invoice.status === 'sent') { %>
+        <form method="post" action="/invoices/<%= invoice.id %>/status">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>"><input type="hidden" name="action" value="draft">
+          <button class="btn btn-ghost" type="submit">Back to draft</button>
+        </form>
+      <% } %>
+      <% if (invoice.status !== 'paid') { %>
+        <a class="btn btn-ghost" href="/invoices/<%= invoice.id %>/edit">Edit invoice</a>
+        <form method="post" action="/invoices/<%= invoice.id %>/delete" data-confirm="Delete invoice <%= invoice.number %>? This cannot be undone.">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button class="btn btn-danger-ghost" type="submit">Delete invoice</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="muted-label">Share</h3>
+    <p class="muted">Anyone with this link can view the invoice and download the PDF — no account needed.</p>
+    <div class="share-row">
+      <input type="text" id="share-url" readonly value="<%= shareUrl %>" onclick="this.select()">
+      <button class="btn btn-secondary btn-sm copy-btn" data-target="#share-url" type="button">Copy</button>
+    </div>
+    <div class="action-stack">
+      <a class="btn btn-ghost btn-sm" href="/share/<%= invoice.share_token %>" target="_blank">Open public page</a>
+      <form method="post" action="/invoices/<%= invoice.id %>/share/reset"
+            data-confirm="Generate a new share link? The old link will stop working.">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="btn btn-ghost btn-sm" type="submit">Reset link</button>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('partials/foot') %>

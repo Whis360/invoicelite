@@ -1,0 +1,92 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<div class="page-head">
+  <h1><%= isSetup ? 'Set up your business' : 'Business settings' %></h1>
+</div>
+<% if (isSetup) { %>
+  <p class="muted setup-note">This appears on every invoice you send. You can change it any time.</p>
+<% } %>
+
+<div class="card form-card">
+  <form method="post" action="/business" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+    <h2>Identity</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label for="name">Business name *</label>
+        <input id="name" name="name" type="text" required maxlength="120" value="<%= values.name || '' %>">
+        <% if (errors.name) { %><p class="field-error"><%= errors.name %></p><% } %>
+      </div>
+      <div class="field">
+        <label for="tax_id">Tax ID / VAT number</label>
+        <input id="tax_id" name="tax_id" type="text" maxlength="60" value="<%= values.tax_id || '' %>">
+      </div>
+      <div class="field">
+        <label for="email">Business email</label>
+        <input id="email" name="email" type="email" maxlength="200" value="<%= values.email || '' %>">
+        <% if (errors.email) { %><p class="field-error"><%= errors.email %></p><% } %>
+      </div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="text" maxlength="40" value="<%= values.phone || '' %>">
+      </div>
+      <div class="field field-full">
+        <label for="address">Address</label>
+        <textarea id="address" name="address" rows="2" maxlength="400"><%= values.address || '' %></textarea>
+      </div>
+    </div>
+
+    <h2>Invoicing defaults</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label for="default_currency">Default currency *</label>
+        <select id="default_currency" name="default_currency">
+          <% currencies.forEach(function (c) { %>
+            <option value="<%= c %>" <%= values.default_currency === c ? 'selected' : '' %>><%= c %></option>
+          <% }) %>
+        </select>
+        <% if (errors.default_currency) { %><p class="field-error"><%= errors.default_currency %></p><% } %>
+      </div>
+      <div class="field">
+        <label for="invoice_prefix">Invoice number prefix *</label>
+        <input id="invoice_prefix" name="invoice_prefix" type="text" required maxlength="10" value="<%= values.invoice_prefix || 'INV' %>">
+        <p class="hint">Invoices will be numbered <%= values.invoice_prefix || 'INV' %>-0001, -0002, …</p>
+        <% if (errors.invoice_prefix) { %><p class="field-error"><%= errors.invoice_prefix %></p><% } %>
+      </div>
+      <div class="field">
+        <label for="default_tax_rate">Default tax rate (%)</label>
+        <input id="default_tax_rate" name="default_tax_rate" type="text" inputmode="decimal" value="<%= values.default_tax_rate || '0' %>">
+        <% if (errors.default_tax_rate) { %><p class="field-error"><%= errors.default_tax_rate %></p><% } %>
+      </div>
+      <div class="field field-full">
+        <label for="payment_details">Payment instructions (shown on invoices)</label>
+        <textarea id="payment_details" name="payment_details" rows="3" maxlength="500" placeholder="e.g. Bank: Global Bank · IBAN: DE89 3704 0044 0532 0130 00 · Reference: invoice number"><%= values.payment_details || '' %></textarea>
+      </div>
+    </div>
+
+    <h2>Logo</h2>
+    <div class="field">
+      <% if (values.logo_path) { %>
+        <div class="logo-preview">
+          <img src="/uploads/<%= values.logo_path.split('/').pop() %>" alt="Business logo">
+          <span class="muted">Current logo</span>
+        </div>
+      <% } %>
+      <label for="logo">Upload logo (PNG, JPG or WEBP, max 2 MB)</label>
+      <input id="logo" name="logo" type="file" accept="image/png,image/jpeg,image/webp">
+      <% if (errors.logo) { %><p class="field-error"><%= errors.logo %></p><% } %>
+      <% if (values.logo_path) { %>
+        <button type="submit" class="btn btn-ghost btn-sm" formaction="/business/logo/remove">Remove logo</button>
+      <% } %>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><%= isSetup ? 'Save and continue' : 'Save settings' %></button>
+      <% if (!isSetup) { %><a class="btn btn-ghost" href="/dashboard">Cancel</a><% } %>
+    </div>
+  </form>
+</div>
+<%- include('partials/foot') %>

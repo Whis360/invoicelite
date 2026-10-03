@@ -1,0 +1,61 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<div class="page-head">
+  <h1>Invoices</h1>
+  <div class="page-actions">
+    <form method="get" action="/invoices" class="search-form">
+      <input type="search" name="q" placeholder="Search number or customer…" value="<%= q %>">
+      <input type="hidden" name="status" value="<%= status %>">
+      <button class="btn btn-secondary btn-sm" type="submit">Search</button>
+    </form>
+    <a class="btn btn-primary" href="/invoices/new">+ New invoice</a>
+  </div>
+</div>
+
+<div class="tabs">
+  <a href="/invoices" class="<%= status === '' ? 'active' : '' %>">All <span><%= counts.all %></span></a>
+  <a href="/invoices?status=draft" class="<%= status === 'draft' ? 'active' : '' %>">Draft <span><%= counts.draft %></span></a>
+  <a href="/invoices?status=sent" class="<%= status === 'sent' ? 'active' : '' %>">Sent <span><%= counts.sent %></span></a>
+  <a href="/invoices?status=overdue" class="<%= status === 'overdue' ? 'active' : '' %>">Overdue <span><%= counts.overdue %></span></a>
+  <a href="/invoices?status=paid" class="<%= status === 'paid' ? 'active' : '' %>">Paid <span><%= counts.paid %></span></a>
+</div>
+
+<div class="card">
+  <% if (invoices.length === 0) { %>
+    <div class="empty">
+      <p><strong>No invoices found.</strong></p>
+      <p class="muted"><%= q ? 'Try a different search.' : 'Create your first invoice to get started.' %></p>
+      <a class="btn btn-primary" href="/invoices/new">+ New invoice</a>
+    </div>
+  <% } else { %>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Number</th><th>Customer</th><th>Issued</th><th>Due</th>
+            <th>Status</th><th class="num">Total</th><th class="num">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% invoices.forEach(function (inv) { %>
+            <tr>
+              <td><a href="/invoices/<%= inv.id %>"><strong><%= inv.number %></strong></a></td>
+              <td><%= inv.customer_name %></td>
+              <td><%= fmtDate(inv.issue_date) %></td>
+              <td><%= fmtDate(inv.due_date) %></td>
+              <td><span class="badge badge-<%= inv.effective_status %>"><%= inv.effective_status.toUpperCase() %></span></td>
+              <td class="num"><strong><%= fmtMoney(inv.total_minor, inv.currency) %></strong></td>
+              <td class="num actions-cell">
+                <a class="btn btn-ghost btn-sm" href="/invoices/<%= inv.id %>">View</a>
+                <a class="btn btn-ghost btn-sm" href="/invoices/<%= inv.id %>/pdf" title="Download PDF">PDF</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+<%- include('partials/foot') %>

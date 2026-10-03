@@ -1,0 +1,113 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+
+<div class="page-head">
+  <h1><%= mode === 'edit' ? 'Edit invoice ' + invoice.number : 'New invoice' %></h1>
+  <div class="page-actions"><a class="btn btn-ghost" href="<%= mode === 'edit' ? '/invoices/' + invoice.id : '/invoices' %>">← Back</a></div>
+</div>
+
+<form method="post" id="invoice-form"
+      action="<%= mode === 'edit' ? '/invoices/' + invoice.id + '/edit' : '/invoices/new' %>"
+      data-digits='<%= JSON.stringify(currencyDigits) %>'>
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <div class="card form-card">
+    <h2>Details</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label for="customer_id">Customer *</label>
+        <select id="customer_id" name="customer_id" required>
+          <option value="">— Choose a customer —</option>
+          <% customers.forEach(function (c) { %>
+            <option value="<%= c.id %>" <%= values.customer_id === String(c.id) ? 'selected' : '' %>><%= c.name %></option>
+          <% }) %>
+        </select>
+        <% if (errors.customer_id) { %><p class="field-error"><%= errors.customer_id %></p><% } %>
+      </div>
+      <div class="field">
+        <label for="currency">Currency *</label>
+        <select id="currency" name="currency">
+          <% currencies.forEach(function (c) { %>
+            <option value="<%= c %>" <%= values.currency === c ? 'selected' : '' %>><%= c %></option>
+          <% }) %>
+        </select>
+        <% if (errors.currency) { %><p class="field-error"><%= errors.currency %></p><% } %>
+      </div>
+      <div class="field">
+        <label for="issue_date">Issue date *</label>
+        <input id="issue_date" name="issue_date" type="date" required value="<%= values.issue_date %>">
+        <% if (errors.issue_date) { %><p class="field-error"><%= errors.issue_date %></p><% } %>
+      </div>
+      <div class="field">
+        <label for="due_date">Due date *</label>
+        <input id="due_date" name="due_date" type="date" required value="<%= values.due_date %>">
+        <% if (errors.due_date) { %><p class="field-error"><%= errors.due_date %></p><% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card form-card">
+    <h2>Products &amp; services</h2>
+    <% if (errors.items) { %><p class="field-error"><%= errors.items %></p><% } %>
+    <div class="items-table" id="items-table">
+      <div class="items-row items-head">
+        <span>Description</span><span>Qty</span><span>Unit price</span><span class="num">Amount</span><span></span>
+      </div>
+      <div id="items-rows"></div>
+      <button type="button" class="btn btn-secondary btn-sm" id="add-row">+ Add line</button>
+    </div>
+
+    <div class="adjustments">
+      <div class="grid-2">
+        <div class="field">
+          <label for="discount_type">Discount</label>
+          <div class="inline-fields">
+            <select id="discount_type" name="discount_type">
+              <option value="none" <%= values.discount_type === 'none' ? 'selected' : '' %>>None</option>
+              <option value="fixed" <%= values.discount_type === 'fixed' ? 'selected' : '' %>>Fixed amount</option>
+              <option value="percent" <%= values.discount_type === 'percent' ? 'selected' : '' %>>Percentage</option>
+            </select>
+            <input id="discount_value" name="discount_value" type="text" inputmode="decimal"
+                   placeholder="0" value="<%= values.discount_value %>" <%= values.discount_type === 'none' ? 'disabled' : '' %>>
+          </div>
+          <% if (errors.discount_value || errors.discount_type) { %><p class="field-error"><%= errors.discount_value || errors.discount_type %></p><% } %>
+        </div>
+        <div class="field">
+          <label for="tax_rate">Tax rate (%)</label>
+          <input id="tax_rate" name="tax_rate" type="text" inputmode="decimal" placeholder="0" value="<%= values.tax_rate %>">
+          <% if (errors.tax_rate) { %><p class="field-error"><%= errors.tax_rate %></p><% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="totals-panel">
+      <div class="totals-row"><span>Subtotal</span><span id="t-subtotal">—</span></div>
+      <div class="totals-row"><span>Discount</span><span id="t-discount">—</span></div>
+      <div class="totals-row"><span>Tax</span><span id="t-tax">—</span></div>
+      <div class="totals-row totals-grand"><span>Total</span><span id="t-total">—</span></div>
+    </div>
+
+    <div class="field field-full">
+      <label for="notes">Notes for the customer (optional)</label>
+      <textarea id="notes" name="notes" rows="2" maxlength="1000"><%= values.notes %></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><%= mode === 'edit' ? 'Save changes' : 'Create invoice' %></button>
+      <a class="btn btn-ghost" href="<%= mode === 'edit' ? '/invoices/' + invoice.id : '/invoices' %>">Cancel</a>
+    </div>
+  </div>
+</form>
+
+<template id="item-template">
+  <div class="items-row">
+    <input type="text" name="description[]" maxlength="200" placeholder="What did you do? e.g. Website design">
+    <input type="text" name="quantity[]" inputmode="decimal" placeholder="1">
+    <input type="text" name="unit_price[]" inputmode="decimal" placeholder="0.00">
+    <span class="num item-amount">—</span>
+    <button type="button" class="btn btn-danger-ghost btn-sm remove-row" title="Remove line">✕</button>
+  </div>
+</template>
+<script id="initial-items" type="application/json"><%- JSON.stringify(values.items || []) %></script>
+<script src="/js/invoice-form.js"></script>
+<%- include('partials/foot') %>

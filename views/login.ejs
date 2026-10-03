@@ -1,0 +1,24 @@
+<%- include('partials/head') %>
+<div class="auth-wrap">
+  <div class="card auth-card">
+    <div class="auth-logo">invoic<b>lite</b></div>
+    <h1>Welcome back</h1>
+    <p class="muted">Log in to manage your invoices.</p>
+    <% if (errors.form) { %><div class="flash flash-error"><%= errors.form %></div><% } %>
+    <form method="post" action="/login">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <% if (typeof next !== 'undefined' && next) { %><input type="hidden" name="next" value="<%= next %>"><% } %>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" value="<%= values.email || '' %>" required autofocus>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+    <p class="auth-alt">New here? <a href="/register">Create an account</a></p>
+  </div>
+</div>
+<%- include('partials/foot') %>

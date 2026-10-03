@@ -1,0 +1,83 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<div class="page-head">
+  <h1>Dashboard</h1>
+  <div class="page-actions">
+    <a class="btn btn-secondary" href="/customers/new">+ Customer</a>
+    <a class="btn btn-primary" href="/invoices/new">+ New invoice</a>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="card stat">
+    <span class="stat-label">Total invoiced</span>
+    <span class="stat-value"><%= fmt(main.invoiced, main.currency) %></span>
+    <span class="stat-sub muted">excluding drafts · <%= main.currency %></span>
+  </div>
+  <div class="card stat">
+    <span class="stat-label">Paid</span>
+    <span class="stat-value stat-green"><%= fmt(main.paid, main.currency) %></span>
+    <span class="stat-sub muted"><%= main.currency %></span>
+  </div>
+  <div class="card stat">
+    <span class="stat-label">Outstanding</span>
+    <span class="stat-value stat-blue"><%= fmt(main.outstanding, main.currency) %></span>
+    <span class="stat-sub muted">sent, awaiting payment</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-label">Overdue</span>
+    <span class="stat-value stat-red"><%= fmt(main.overdue, main.currency) %></span>
+    <span class="stat-sub muted">past due date</span>
+  </div>
+</div>
+
+<% if (others.length) { %>
+  <div class="card other-currencies">
+    <strong>Other currencies</strong>
+    <% others.forEach(function (r) { %>
+      <div class="cur-row">
+        <span class="badge badge-neutral"><%= r.currency %></span>
+        <span>invoiced <%= fmt(r.invoiced, r.currency) %></span>
+        <span class="muted">· paid <%= fmt(r.paid, r.currency) %></span>
+        <span class="muted">· outstanding <%= fmt(r.outstanding, r.currency) %></span>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<div class="card">
+  <div class="card-head">
+    <h2>Recent invoices</h2>
+    <a href="/invoices" class="muted">View all (<%= totalInvoices %>)</a>
+  </div>
+  <% if (recent.length === 0) { %>
+    <div class="empty">
+      <p><strong>No invoices yet.</strong></p>
+      <p class="muted">Create your first invoice to see totals here.</p>
+      <a class="btn btn-primary" href="/invoices/new">+ New invoice</a>
+    </div>
+  <% } else { %>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Number</th><th>Customer</th><th>Issued</th><th>Due</th><th>Status</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <% recent.forEach(function (inv) { %>
+            <tr>
+              <td><a href="/invoices/<%= inv.id %>"><%= inv.number %></a></td>
+              <td><%= inv.customer_name %></td>
+              <td><%= fmtDate(inv.issue_date) %></td>
+              <td><%= fmtDate(inv.due_date) %></td>
+              <td><span class="badge badge-<%= effective(inv) %>"><%= effective(inv).toUpperCase() %></span></td>
+              <td class="num"><%= fmtMoney(inv.total_minor, inv.currency) %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+<%- include('partials/foot') %>

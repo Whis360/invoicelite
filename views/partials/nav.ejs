@@ -1,0 +1,22 @@
+<nav class="topnav">
+  <div class="nav-inner">
+    <a class="brand" href="/dashboard">invoic<b>lite</b></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="/dashboard" class="<%= path === '/dashboard' ? 'active' : '' %>">Dashboard</a>
+      <a href="/invoices" class="<%= path.startsWith('/invoices') ? 'active' : '' %>">Invoices</a>
+      <a href="/customers" class="<%= path.startsWith('/customers') ? 'active' : '' %>">Customers</a>
+      <a href="/business" class="<%= path.startsWith('/business') ? 'active' : '' %>">Settings</a>
+      <div class="nav-user">
+        <span class="muted"><%= currentUser.name %></span>
+        <form method="post" action="/logout">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="btn btn-ghost btn-sm">Log out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<main class="container">

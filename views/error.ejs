@@ -1,0 +1,8 @@
+<%- include('partials/head') %>
+<% if (typeof currentUser !== 'undefined' && currentUser) { %><%- include('partials/nav') %><% } %>
+<div class="card" style="text-align:center; padding: 48px 24px; margin-top: 48px;">
+  <h1><%= title %></h1>
+  <p class="muted"><%= message %></p>
+  <p><a class="btn btn-primary" href="/">Go home</a></p>
+</div>
+<%- include('partials/foot') %>

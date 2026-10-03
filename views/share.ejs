@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title><%= title %> · <%= business.name %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="public-page">
+<div class="share-topbar">
+  <span class="brand">invoic<b>lite</b></span>
+  <a class="btn btn-primary btn-sm" href="/share/<%= invoice.share_token %>/pdf" target="_blank">Download PDF</a>
+</div>
+<main class="container container-narrow">
+  <div class="card share-card">
+    <div class="share-head">
+      <div>
+        <% if (business.logo_path) { %>
+          <img class="share-logo" src="/uploads/<%= business.logo_path.split('/').pop() %>" alt="<%= business.name %>">
+        <% } %>
+        <strong class="share-biz"><%= business.name %></strong>
+      </div>
+      <div class="share-title">
+        <span class="badge badge-<%= effectiveStatus %>"><%= effectiveStatus.toUpperCase() %></span>
+        <h1><%= invoice.number %></h1>
+      </div>
+    </div>
+
+    <div class="share-meta">
+      <div><span class="muted-label">From</span><p><strong><%= business.name %></strong></p></div>
+      <div><span class="muted-label">Bill to</span><p><strong><%= customer.name %></strong></p></div>
+      <div><span class="muted-label">Issued</span><p><%= fmtDate(invoice.issue_date) %></p></div>
+      <div><span class="muted-label">Due</span><p><%= fmtDate(invoice.due_date) %></p></div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Description</th><th class="num">Qty</th><th class="num">Unit price</th><th class="num">Amount</th></tr></thead>
+        <tbody>
+          <% items.forEach(function (it) { %>
+            <tr>
+              <td><%= it.description %></td>
+              <td class="num"><%= it.quantity %></td>
+              <td class="num"><%= fmtMoney(it.unit_price_minor, invoice.currency) %></td>
+              <td class="num"><strong><%= fmtMoney(it.amount_minor, invoice.currency) %></strong></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="totals-panel">
+      <div class="totals-row"><span>Subtotal</span><span><%= fmtMoney(invoice.subtotal_minor, invoice.currency) %></span></div>
+      <% if (invoice.discount_minor > 0) { %>
+        <div class="totals-row"><span>Discount</span><span>− <%= fmtMoney(invoice.discount_minor, invoice.currency) %></span></div>
+      <% } %>
+      <% if (invoice.tax_minor > 0 || invoice.tax_rate > 0) { %>
+        <div class="totals-row"><span>Tax (<%= invoice.tax_rate %>%)</span><span><%= fmtMoney(invoice.tax_minor, invoice.currency) %></span></div>
+      <% } %>
+      <div class="totals-row totals-grand"><span>Total</span><span><%= fmtMoney(invoice.total_minor, invoice.currency) %></span></div>
+    </div>
+
+    <% if (business.payment_details) { %>
+      <h3 class="muted-label">Payment details</h3>
+      <p class="pre-line"><%= business.payment_details %></p>
+    <% } %>
+    <% if (invoice.status === 'paid') { %>
+      <div class="paid-banner">
+        ✔ This invoice was paid<%= invoice.paid_at ? ' on ' + fmtDate(invoice.paid_at) : '' %>.
+        <a href="/share/<%= invoice.share_token %>/receipt" target="_blank">Download receipt (PDF)</a>
+      </div>
+    <% } %>
+  </div>
+  <p class="share-footer muted">Powered by <a href="/">InvoiceLite</a> — simple invoicing for small businesses.</p>
+</main>
+</body>
+</html>

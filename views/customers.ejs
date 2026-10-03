@@ -1,0 +1,47 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<div class="page-head">
+  <h1>Customers</h1>
+  <div class="page-actions">
+    <a class="btn btn-primary" href="/customers/new">+ New customer</a>
+  </div>
+</div>
+
+<div class="card">
+  <% if (customers.length === 0) { %>
+    <div class="empty">
+      <p><strong>No customers yet.</strong></p>
+      <p class="muted">Add the people or companies you invoice.</p>
+      <a class="btn btn-primary" href="/customers/new">+ New customer</a>
+    </div>
+  <% } else { %>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Phone</th><th>Invoices</th><th class="num">Actions</th></tr>
+        </thead>
+        <tbody>
+          <% customers.forEach(function (c) { %>
+            <tr>
+              <td><strong><%= c.name %></strong><% if (c.address) { %><br><span class="muted"><%= c.address.split('\n')[0] %></span><% } %></td>
+              <td><%= c.email || '—' %></td>
+              <td><%= c.phone || '—' %></td>
+              <td><%= c.invoice_count %></td>
+              <td class="num actions-cell">
+                <a class="btn btn-ghost btn-sm" href="/customers/<%= c.id %>/edit">Edit</a>
+                <form method="post" action="/customers/<%= c.id %>/delete" class="inline"
+                      data-confirm="Delete <%= c.name %>? This cannot be undone.">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <button type="submit" class="btn btn-danger-ghost btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+<%- include('partials/foot') %>
