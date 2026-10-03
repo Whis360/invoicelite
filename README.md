@@ -22,6 +22,13 @@ No build step, no bundler, no native modules — `npm install` and `npm start`.
 
 ## Quick start
 
+On Windows, the easy way: **double-click `Start InvoiceLite.bat`** in this
+folder. It starts the server (minimized console window — closing that window
+stops the app), opens your browser at http://localhost:4173, and if the app
+is already running it just opens it.
+
+From a terminal instead:
+
 ```bash
 npm install
 cp .env.example .env        # optional but recommended
