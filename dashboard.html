@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Dashboard · InvoiceLite</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>iL</text></svg>">
+</head>
+<body>
+<div id="static-demo-banner">
+  This is a <b>static demo</b> of InvoiceLite — the data is sample only and forms don't submit.
+  <a href="https://github.com/Whis360/invoicelite" target="_blank" rel="noopener">View the source</a>
+</div>
+<style>
+  #static-demo-banner {
+    position: sticky; top: 0; z-index: 9999;
+    background: #1e1b4b; color: #e0e7ff;
+    font: 13px/1.4 system-ui, sans-serif;
+    text-align: center; padding: 8px 16px;
+  }
+  #static-demo-banner a { color: #a5b4fc; font-weight: 600; }
+</style>
+
+
+<nav class="topnav">
+  <div class="nav-inner">
+    <a class="brand" href="dashboard.html">invoic<b>lite</b></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="invoices.html" class="">Invoices</a>
+      <a href="customers.html" class="">Customers</a>
+      <a href="business.html" class="">Settings</a>
+      <div class="nav-user">
+        <span class="muted">Maya Rivera</span>
+        <form method="post" action="#">
+          <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+          <button type="submit" class="btn btn-ghost btn-sm">Log out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<main class="container">
+
+
+
+
+<div class="page-head">
+  <h1>Dashboard</h1>
+  <div class="page-actions">
+    <a class="btn btn-secondary" href="customer-new.html">+ Customer</a>
+    <a class="btn btn-primary" href="invoice-new.html">+ New invoice</a>
+  </div>
+</div>
+
+<div class="stats-grid">
+  <div class="card stat">
+    <span class="stat-label">Total invoiced</span>
+    <span class="stat-value">€1,524.60</span>
+    <span class="stat-sub muted">excluding drafts · EUR</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-label">Paid</span>
+    <span class="stat-value stat-green">€1,524.60</span>
+    <span class="stat-sub muted">EUR</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-label">Outstanding</span>
+    <span class="stat-value stat-blue">€0.00</span>
+    <span class="stat-sub muted">sent, awaiting payment</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-label">Overdue</span>
+    <span class="stat-value stat-red">€0.00</span>
+    <span class="stat-sub muted">past due date</span>
+  </div>
+</div>
+
+
+  <div class="card other-currencies">
+    <strong>Other currencies</strong>
+    
+      <div class="cur-row">
+        <span class="badge badge-neutral">USD</span>
+        <span>invoiced $1,452.00</span>
+        <span class="muted">· paid $1,452.00</span>
+        <span class="muted">· outstanding $0.00</span>
+      </div>
+    
+  </div>
+
+
+<div class="card">
+  <div class="card-head">
+    <h2>Recent invoices</h2>
+    <a href="invoices.html" class="muted">View all (2)</a>
+  </div>
+  
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Number</th><th>Customer</th><th>Issued</th><th>Due</th><th>Status</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td><a href="invoice-2.html">MRS-0002</a></td>
+              <td>Flame Inc.</td>
+              <td>03 Oct 2026</td>
+              <td>17 Oct 2026</td>
+              <td><span class="badge badge-paid">PAID</span></td>
+              <td class="num">$1,452.00</td>
+            </tr>
+          
+            <tr>
+              <td><a href="invoice-1.html">MRS-0001</a></td>
+              <td>Nordwind GmbH</td>
+              <td>02 Oct 2026</td>
+              <td>16 Oct 2026</td>
+              <td><span class="badge badge-paid">PAID</span></td>
+              <td class="num">€1,524.60</td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  
+</div>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>
+

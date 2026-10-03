@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>MRS-0002 · InvoiceLite</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>iL</text></svg>">
+</head>
+<body>
+<div id="static-demo-banner">
+  This is a <b>static demo</b> of InvoiceLite — the data is sample only and forms don't submit.
+  <a href="https://github.com/Whis360/invoicelite" target="_blank" rel="noopener">View the source</a>
+</div>
+<style>
+  #static-demo-banner {
+    position: sticky; top: 0; z-index: 9999;
+    background: #1e1b4b; color: #e0e7ff;
+    font: 13px/1.4 system-ui, sans-serif;
+    text-align: center; padding: 8px 16px;
+  }
+  #static-demo-banner a { color: #a5b4fc; font-weight: 600; }
+</style>
+
+
+<nav class="topnav">
+  <div class="nav-inner">
+    <a class="brand" href="dashboard.html">invoic<b>lite</b></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="dashboard.html" class="">Dashboard</a>
+      <a href="invoices.html" class="active">Invoices</a>
+      <a href="customers.html" class="">Customers</a>
+      <a href="business.html" class="">Settings</a>
+      <div class="nav-user">
+        <span class="muted">Maya Rivera</span>
+        <form method="post" action="#">
+          <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+          <button type="submit" class="btn btn-ghost btn-sm">Log out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<main class="container">
+
+
+
+
+<div class="page-head">
+  <h1>Invoice <span class="invoice-number">MRS-0002</span></h1>
+  <div class="page-actions">
+    <a class="btn btn-ghost" href="invoices.html">← All invoices</a>
+    <a class="btn btn-secondary" href="#" target="_blank">Download PDF</a>
+  </div>
+</div>
+
+<div class="invoice-meta-row">
+  <span class="badge badge-paid">PAID</span>
+  <span class="muted">Issued 03 Oct 2026 · Due 17 Oct 2026
+     · Paid 03 Oct 2026</span>
+</div>
+
+<div class="invoice-grid">
+  <div class="card">
+    <h3 class="muted-label">From</h3>
+    <p><strong>Rivera Design Studio</strong></p>
+    <p class="pre-line">Calle Mayor 12
+28013 Madrid, Spain</p>
+    <p class="muted">billing@riverastudio.example</p>
+    <p class="muted">Tax ID: ES-B-12345678</p>
+  </div>
+  <div class="card">
+    <h3 class="muted-label">Bill to</h3>
+    <p><strong>Flame Inc.</strong></p>
+    <p class="pre-line">2515 Hurstbourne Gem Ln</p>
+    <p class="muted">flameinc@dell.com</p>
+    <p class="muted">+1 4722786959</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Description</th><th class="num">Qty</th><th class="num">Unit price</th><th class="num">Amount</th></tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td>Website Design</td>
+            <td class="num">1</td>
+            <td class="num">$1,200.00</td>
+            <td class="num"><strong>$1,200.00</strong></td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="totals-panel">
+    <div class="totals-row"><span>Subtotal</span><span>$1,200.00</span></div>
+    
+    
+      <div class="totals-row"><span>Tax (21%)</span><span>$252.00</span></div>
+    
+    <div class="totals-row totals-grand"><span>Total</span><span>$1,452.00</span></div>
+  </div>
+
+  
+</div>
+
+<div class="invoice-grid">
+  <div class="card">
+    <h3 class="muted-label">Actions</h3>
+    <div class="action-stack">
+      
+      
+        <a class="btn btn-primary" href="#" target="_blank">Download receipt (PDF)</a>
+        <form method="post" action="#">
+          <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34"><input type="hidden" name="action" value="sent">
+          <button class="btn btn-ghost" type="submit">Undo payment (back to sent)</button>
+        </form>
+      
+      
+      
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="muted-label">Share</h3>
+    <p class="muted">Anyone with this link can view the invoice and download the PDF — no account needed.</p>
+    <div class="share-row">
+      <input type="text" id="share-url" readonly value="http://localhost:4173/share/oAhBUr5IXuqISQd7UWGePA" onclick="this.select()">
+      <button class="btn btn-secondary btn-sm copy-btn" data-target="#share-url" type="button">Copy</button>
+    </div>
+    <div class="action-stack">
+      <a class="btn btn-ghost btn-sm" href="dashboard.html" target="_blank">Open public page</a>
+      <form method="post" action="#"
+            data-confirm="Generate a new share link? The old link will stop working.">
+        <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+        <button class="btn btn-ghost btn-sm" type="submit">Reset link</button>
+      </form>
+    </div>
+  </div>
+</div>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>
+

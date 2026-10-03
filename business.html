@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Business settings · InvoiceLite</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>iL</text></svg>">
+</head>
+<body>
+<div id="static-demo-banner">
+  This is a <b>static demo</b> of InvoiceLite — the data is sample only and forms don't submit.
+  <a href="https://github.com/Whis360/invoicelite" target="_blank" rel="noopener">View the source</a>
+</div>
+<style>
+  #static-demo-banner {
+    position: sticky; top: 0; z-index: 9999;
+    background: #1e1b4b; color: #e0e7ff;
+    font: 13px/1.4 system-ui, sans-serif;
+    text-align: center; padding: 8px 16px;
+  }
+  #static-demo-banner a { color: #a5b4fc; font-weight: 600; }
+</style>
+
+
+<nav class="topnav">
+  <div class="nav-inner">
+    <a class="brand" href="dashboard.html">invoic<b>lite</b></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="dashboard.html" class="">Dashboard</a>
+      <a href="invoices.html" class="">Invoices</a>
+      <a href="customers.html" class="">Customers</a>
+      <a href="business.html" class="active">Settings</a>
+      <div class="nav-user">
+        <span class="muted">Maya Rivera</span>
+        <form method="post" action="#">
+          <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+          <button type="submit" class="btn btn-ghost btn-sm">Log out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<main class="container">
+
+
+
+
+<div class="page-head">
+  <h1>Business settings</h1>
+</div>
+
+
+<div class="card form-card">
+  <form method="post" action="#" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+
+    <h2>Identity</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label for="name">Business name *</label>
+        <input id="name" name="name" type="text" required maxlength="120" value="Rivera Design Studio">
+        
+      </div>
+      <div class="field">
+        <label for="tax_id">Tax ID / VAT number</label>
+        <input id="tax_id" name="tax_id" type="text" maxlength="60" value="ES-B-12345678">
+      </div>
+      <div class="field">
+        <label for="email">Business email</label>
+        <input id="email" name="email" type="email" maxlength="200" value="billing@riverastudio.example">
+        
+      </div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="text" maxlength="40" value="+34 600 123 456">
+      </div>
+      <div class="field field-full">
+        <label for="address">Address</label>
+        <textarea id="address" name="address" rows="2" maxlength="400">Calle Mayor 12
+28013 Madrid, Spain</textarea>
+      </div>
+    </div>
+
+    <h2>Invoicing defaults</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label for="default_currency">Default currency *</label>
+        <select id="default_currency" name="default_currency">
+          
+            <option value="USD" >USD</option>
+          
+            <option value="EUR" selected>EUR</option>
+          
+            <option value="GBP" >GBP</option>
+          
+            <option value="JPY" >JPY</option>
+          
+            <option value="CHF" >CHF</option>
+          
+            <option value="CAD" >CAD</option>
+          
+            <option value="AUD" >AUD</option>
+          
+            <option value="NZD" >NZD</option>
+          
+            <option value="CNY" >CNY</option>
+          
+            <option value="HKD" >HKD</option>
+          
+            <option value="SGD" >SGD</option>
+          
+            <option value="INR" >INR</option>
+          
+            <option value="KRW" >KRW</option>
+          
+            <option value="SEK" >SEK</option>
+          
+            <option value="NOK" >NOK</option>
+          
+            <option value="DKK" >DKK</option>
+          
+            <option value="PLN" >PLN</option>
+          
+            <option value="CZK" >CZK</option>
+          
+            <option value="HUF" >HUF</option>
+          
+            <option value="RON" >RON</option>
+          
+            <option value="BGN" >BGN</option>
+          
+            <option value="TRY" >TRY</option>
+          
+            <option value="BRL" >BRL</option>
+          
+            <option value="MXN" >MXN</option>
+          
+            <option value="ARS" >ARS</option>
+          
+            <option value="CLP" >CLP</option>
+          
+            <option value="COP" >COP</option>
+          
+            <option value="PEN" >PEN</option>
+          
+            <option value="ZAR" >ZAR</option>
+          
+            <option value="NGN" >NGN</option>
+          
+            <option value="KES" >KES</option>
+          
+            <option value="EGP" >EGP</option>
+          
+            <option value="AED" >AED</option>
+          
+            <option value="SAR" >SAR</option>
+          
+            <option value="QAR" >QAR</option>
+          
+            <option value="ILS" >ILS</option>
+          
+            <option value="THB" >THB</option>
+          
+            <option value="MYR" >MYR</option>
+          
+            <option value="IDR" >IDR</option>
+          
+            <option value="PHP" >PHP</option>
+          
+            <option value="VND" >VND</option>
+          
+            <option value="PKR" >PKR</option>
+          
+            <option value="BDT" >BDT</option>
+          
+        </select>
+        
+      </div>
+      <div class="field">
+        <label for="invoice_prefix">Invoice number prefix *</label>
+        <input id="invoice_prefix" name="invoice_prefix" type="text" required maxlength="10" value="MRS">
+        <p class="hint">Invoices will be numbered MRS-0001, -0002, …</p>
+        
+      </div>
+      <div class="field">
+        <label for="default_tax_rate">Default tax rate (%)</label>
+        <input id="default_tax_rate" name="default_tax_rate" type="text" inputmode="decimal" value="21">
+        
+      </div>
+      <div class="field field-full">
+        <label for="payment_details">Payment instructions (shown on invoices)</label>
+        <textarea id="payment_details" name="payment_details" rows="3" maxlength="500" placeholder="e.g. Bank: Global Bank · IBAN: DE89 3704 0044 0532 0130 00 · Reference: invoice number">Bank: Banco Europeo · IBAN: ES91 2100 0418 4502 0005 1332 · Reference: invoice number</textarea>
+      </div>
+    </div>
+
+    <h2>Logo</h2>
+    <div class="field">
+      
+      <label for="logo">Upload logo (PNG, JPG or WEBP, max 2 MB)</label>
+      <input id="logo" name="logo" type="file" accept="image/png,image/jpeg,image/webp">
+      
+      
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save settings</button>
+      <a class="btn btn-ghost" href="dashboard.html">Cancel</a>
+    </div>
+  </form>
+</div>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Log in · InvoiceLite</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>iL</text></svg>">
+</head>
+<body>
+<div id="static-demo-banner">
+  This is a <b>static demo</b> of InvoiceLite — the data is sample only and forms don't submit.
+  <a href="https://github.com/Whis360/invoicelite" target="_blank" rel="noopener">View the source</a>
+</div>
+<style>
+  #static-demo-banner {
+    position: sticky; top: 0; z-index: 9999;
+    background: #1e1b4b; color: #e0e7ff;
+    font: 13px/1.4 system-ui, sans-serif;
+    text-align: center; padding: 8px 16px;
+  }
+  #static-demo-banner a { color: #a5b4fc; font-weight: 600; }
+</style>
+
+
+<div class="auth-wrap">
+  <div class="card auth-card">
+    <div class="auth-logo">invoic<b>lite</b></div>
+    <h1>Welcome back</h1>
+    <p class="muted">Log in to manage your invoices.</p>
+    
+    <form method="post" action="#">
+      <input type="hidden" name="_csrf" value="a0d8ff63afca577b9a7f4d1edc44fca54bcb8606906caadc089db786f75389ee">
+      
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" value="" required autofocus>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+    </form>
+    <p class="auth-alt">New here? <a href="dashboard.html">Create an account</a></p>
+  </div>
+</div>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>
+

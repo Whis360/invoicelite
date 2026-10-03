@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>New invoice · InvoiceLite</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>iL</text></svg>">
+</head>
+<body>
+<div id="static-demo-banner">
+  This is a <b>static demo</b> of InvoiceLite — the data is sample only and forms don't submit.
+  <a href="https://github.com/Whis360/invoicelite" target="_blank" rel="noopener">View the source</a>
+</div>
+<style>
+  #static-demo-banner {
+    position: sticky; top: 0; z-index: 9999;
+    background: #1e1b4b; color: #e0e7ff;
+    font: 13px/1.4 system-ui, sans-serif;
+    text-align: center; padding: 8px 16px;
+  }
+  #static-demo-banner a { color: #a5b4fc; font-weight: 600; }
+</style>
+
+
+<nav class="topnav">
+  <div class="nav-inner">
+    <a class="brand" href="dashboard.html">invoic<b>lite</b></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="dashboard.html" class="">Dashboard</a>
+      <a href="invoices.html" class="active">Invoices</a>
+      <a href="customers.html" class="">Customers</a>
+      <a href="business.html" class="">Settings</a>
+      <div class="nav-user">
+        <span class="muted">Maya Rivera</span>
+        <form method="post" action="#">
+          <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+          <button type="submit" class="btn btn-ghost btn-sm">Log out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<main class="container">
+
+
+<div class="page-head">
+  <h1>New invoice</h1>
+  <div class="page-actions"><a class="btn btn-ghost" href="invoices.html">← Back</a></div>
+</div>
+
+<form method="post" id="invoice-form"
+      action="#"
+      data-digits='{&#34;USD&#34;:2,&#34;EUR&#34;:2,&#34;GBP&#34;:2,&#34;JPY&#34;:0,&#34;CHF&#34;:2,&#34;CAD&#34;:2,&#34;AUD&#34;:2,&#34;NZD&#34;:2,&#34;CNY&#34;:2,&#34;HKD&#34;:2,&#34;SGD&#34;:2,&#34;INR&#34;:2,&#34;KRW&#34;:0,&#34;SEK&#34;:2,&#34;NOK&#34;:2,&#34;DKK&#34;:2,&#34;PLN&#34;:2,&#34;CZK&#34;:2,&#34;HUF&#34;:0,&#34;RON&#34;:2,&#34;BGN&#34;:2,&#34;TRY&#34;:2,&#34;BRL&#34;:2,&#34;MXN&#34;:2,&#34;ARS&#34;:2,&#34;CLP&#34;:0,&#34;COP&#34;:0,&#34;PEN&#34;:2,&#34;ZAR&#34;:2,&#34;NGN&#34;:2,&#34;KES&#34;:2,&#34;EGP&#34;:2,&#34;AED&#34;:2,&#34;SAR&#34;:2,&#34;QAR&#34;:2,&#34;ILS&#34;:2,&#34;THB&#34;:2,&#34;MYR&#34;:2,&#34;IDR&#34;:0,&#34;PHP&#34;:2,&#34;VND&#34;:0,&#34;PKR&#34;:0,&#34;BDT&#34;:2}'>
+  <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+
+  <div class="card form-card">
+    <h2>Details</h2>
+    <div class="grid-2">
+      <div class="field">
+        <label for="customer_id">Customer *</label>
+        <select id="customer_id" name="customer_id" required>
+          <option value="">— Choose a customer —</option>
+          
+            <option value="2" >Flame Inc.</option>
+          
+            <option value="1" >Nordwind GmbH</option>
+          
+        </select>
+        
+      </div>
+      <div class="field">
+        <label for="currency">Currency *</label>
+        <select id="currency" name="currency">
+          
+            <option value="USD" >USD</option>
+          
+            <option value="EUR" selected>EUR</option>
+          
+            <option value="GBP" >GBP</option>
+          
+            <option value="JPY" >JPY</option>
+          
+            <option value="CHF" >CHF</option>
+          
+            <option value="CAD" >CAD</option>
+          
+            <option value="AUD" >AUD</option>
+          
+            <option value="NZD" >NZD</option>
+          
+            <option value="CNY" >CNY</option>
+          
+            <option value="HKD" >HKD</option>
+          
+            <option value="SGD" >SGD</option>
+          
+            <option value="INR" >INR</option>
+          
+            <option value="KRW" >KRW</option>
+          
+            <option value="SEK" >SEK</option>
+          
+            <option value="NOK" >NOK</option>
+          
+            <option value="DKK" >DKK</option>
+          
+            <option value="PLN" >PLN</option>
+          
+            <option value="CZK" >CZK</option>
+          
+            <option value="HUF" >HUF</option>
+          
+            <option value="RON" >RON</option>
+          
+            <option value="BGN" >BGN</option>
+          
+            <option value="TRY" >TRY</option>
+          
+            <option value="BRL" >BRL</option>
+          
+            <option value="MXN" >MXN</option>
+          
+            <option value="ARS" >ARS</option>
+          
+            <option value="CLP" >CLP</option>
+          
+            <option value="COP" >COP</option>
+          
+            <option value="PEN" >PEN</option>
+          
+            <option value="ZAR" >ZAR</option>
+          
+            <option value="NGN" >NGN</option>
+          
+            <option value="KES" >KES</option>
+          
+            <option value="EGP" >EGP</option>
+          
+            <option value="AED" >AED</option>
+          
+            <option value="SAR" >SAR</option>
+          
+            <option value="QAR" >QAR</option>
+          
+            <option value="ILS" >ILS</option>
+          
+            <option value="THB" >THB</option>
+          
+            <option value="MYR" >MYR</option>
+          
+            <option value="IDR" >IDR</option>
+          
+            <option value="PHP" >PHP</option>
+          
+            <option value="VND" >VND</option>
+          
+            <option value="PKR" >PKR</option>
+          
+            <option value="BDT" >BDT</option>
+          
+        </select>
+        
+      </div>
+      <div class="field">
+        <label for="issue_date">Issue date *</label>
+        <input id="issue_date" name="issue_date" type="date" required value="2026-10-03">
+        
+      </div>
+      <div class="field">
+        <label for="due_date">Due date *</label>
+        <input id="due_date" name="due_date" type="date" required value="2026-10-17">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="card form-card">
+    <h2>Products &amp; services</h2>
+    
+    <div class="items-table" id="items-table">
+      <div class="items-row items-head">
+        <span>Description</span><span>Qty</span><span>Unit price</span><span class="num">Amount</span><span></span>
+      </div>
+      <div id="items-rows"></div>
+      <button type="button" class="btn btn-secondary btn-sm" id="add-row">+ Add line</button>
+    </div>
+
+    <div class="adjustments">
+      <div class="grid-2">
+        <div class="field">
+          <label for="discount_type">Discount</label>
+          <div class="inline-fields">
+            <select id="discount_type" name="discount_type">
+              <option value="none" selected>None</option>
+              <option value="fixed" >Fixed amount</option>
+              <option value="percent" >Percentage</option>
+            </select>
+            <input id="discount_value" name="discount_value" type="text" inputmode="decimal"
+                   placeholder="0" value="" disabled>
+          </div>
+          
+        </div>
+        <div class="field">
+          <label for="tax_rate">Tax rate (%)</label>
+          <input id="tax_rate" name="tax_rate" type="text" inputmode="decimal" placeholder="0" value="21">
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="totals-panel">
+      <div class="totals-row"><span>Subtotal</span><span id="t-subtotal">—</span></div>
+      <div class="totals-row"><span>Discount</span><span id="t-discount">—</span></div>
+      <div class="totals-row"><span>Tax</span><span id="t-tax">—</span></div>
+      <div class="totals-row totals-grand"><span>Total</span><span id="t-total">—</span></div>
+    </div>
+
+    <div class="field field-full">
+      <label for="notes">Notes for the customer (optional)</label>
+      <textarea id="notes" name="notes" rows="2" maxlength="1000"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Create invoice</button>
+      <a class="btn btn-ghost" href="invoices.html">Cancel</a>
+    </div>
+  </div>
+</form>
+
+<template id="item-template">
+  <div class="items-row">
+    <input type="text" name="description[]" maxlength="200" placeholder="What did you do? e.g. Website design">
+    <input type="text" name="quantity[]" inputmode="decimal" placeholder="1">
+    <input type="text" name="unit_price[]" inputmode="decimal" placeholder="0.00">
+    <span class="num item-amount">—</span>
+    <button type="button" class="btn btn-danger-ghost btn-sm remove-row" title="Remove line">✕</button>
+  </div>
+</template>
+<script id="initial-items" type="application/json">[{"description":"","quantity":"1","unit_price":""}]</script>
+<script src="js/invoice-form.js"></script>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>
+

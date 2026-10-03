@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Customers · InvoiceLite</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'>iL</text></svg>">
+</head>
+<body>
+<div id="static-demo-banner">
+  This is a <b>static demo</b> of InvoiceLite — the data is sample only and forms don't submit.
+  <a href="https://github.com/Whis360/invoicelite" target="_blank" rel="noopener">View the source</a>
+</div>
+<style>
+  #static-demo-banner {
+    position: sticky; top: 0; z-index: 9999;
+    background: #1e1b4b; color: #e0e7ff;
+    font: 13px/1.4 system-ui, sans-serif;
+    text-align: center; padding: 8px 16px;
+  }
+  #static-demo-banner a { color: #a5b4fc; font-weight: 600; }
+</style>
+
+
+<nav class="topnav">
+  <div class="nav-inner">
+    <a class="brand" href="dashboard.html">invoic<b>lite</b></a>
+    <button class="nav-toggle" aria-label="Menu" onclick="document.body.classList.toggle('nav-open')">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="dashboard.html" class="">Dashboard</a>
+      <a href="invoices.html" class="">Invoices</a>
+      <a href="customers.html" class="active">Customers</a>
+      <a href="business.html" class="">Settings</a>
+      <div class="nav-user">
+        <span class="muted">Maya Rivera</span>
+        <form method="post" action="#">
+          <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+          <button type="submit" class="btn btn-ghost btn-sm">Log out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<main class="container">
+
+
+
+
+<div class="page-head">
+  <h1>Customers</h1>
+  <div class="page-actions">
+    <a class="btn btn-primary" href="customer-new.html">+ New customer</a>
+  </div>
+</div>
+
+<div class="card">
+  
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Phone</th><th>Invoices</th><th class="num">Actions</th></tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <td><strong>Flame Inc.</strong><br><span class="muted">2515 Hurstbourne Gem Ln</span></td>
+              <td>flameinc@dell.com</td>
+              <td>+1 4722786959</td>
+              <td>1</td>
+              <td class="num actions-cell">
+                <a class="btn btn-ghost btn-sm" href="#">Edit</a>
+                <form method="post" action="#" class="inline"
+                      data-confirm="Delete Flame Inc.? This cannot be undone.">
+                  <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+                  <button type="submit" class="btn btn-danger-ghost btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+          
+            <tr>
+              <td><strong>Nordwind GmbH</strong><br><span class="muted">Torstraße 140</span></td>
+              <td>accounts@nordwind.example</td>
+              <td>+49 30 1234 5678</td>
+              <td>1</td>
+              <td class="num actions-cell">
+                <a class="btn btn-ghost btn-sm" href="#">Edit</a>
+                <form method="post" action="#" class="inline"
+                      data-confirm="Delete Nordwind GmbH? This cannot be undone.">
+                  <input type="hidden" name="_csrf" value="93b559dc6e9aa92e96bca05afcc7dcf661040f1bfdbd6afcc14fede2a3f63e34">
+                  <button type="submit" class="btn btn-danger-ghost btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  
+</div>
+</main>
+<script src="js/app.js"></script>
+</body>
+</html>
+
